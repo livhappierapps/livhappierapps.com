@@ -2,141 +2,26 @@ import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
+import "./app.css";
 
 const queryClient = new QueryClient();
 
+function Header() {
+  return (
+    <header className="site-header">
+      <div className="header-logo-bar">
+        <img src="/logo.jpeg" alt="LivHappier Apps" className="header-logo" />
+      </div>
+      <div className="candy-cane-bar" />
+    </header>
+  );
+}
+
 function ComingSoon() {
   return (
-    <div className="coming-soon-page">
-      <div className="logo-section">
-        <div className="logo-wrapper">
-          <img
-            src="/logo.jpeg"
-            alt="LivHappier Apps Logo"
-            className="logo"
-          />
-          <div className="glow-ring" />
-        </div>
-      </div>
-
-      <div className="candy-cane-divider" />
-
-      <div className="content">
-        <h1 className="coming-soon-text">COMING SOON</h1>
-        <p className="tagline">Something amazing is on its way ✨</p>
-      </div>
-
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap');
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        .coming-soon-page {
-          min-height: 100vh;
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          overflow: hidden;
-        }
-
-        .logo-section {
-          background: #36454f;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 3rem 2rem;
-          width: 100%;
-        }
-
-        .candy-cane-divider {
-          width: 100%;
-          height: 60px;
-          background-image: url('/candy-cane.jpeg');
-          background-repeat: repeat-x;
-          background-size: auto 100%;
-          flex-shrink: 0;
-        }
-
-        .content {
-          flex: 1;
-          background: #36454f;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 2rem;
-          padding: 3rem 2rem;
-          text-align: center;
-        }
-
-        .logo-wrapper {
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .logo {
-          width: min(380px, 88vw);
-          height: auto;
-          position: relative;
-          z-index: 2;
-          filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.6)) drop-shadow(0 0 50px rgba(255, 0, 200, 0.4));
-          animation: floatLogo 4s ease-in-out infinite;
-        }
-
-        .glow-ring {
-          display: none;
-        }
-
-        @keyframes floatLogo {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-12px); }
-        }
-
-        @keyframes spinGlow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-
-        .coming-soon-text {
-          font-family: 'Orbitron', 'Arial Black', sans-serif;
-          font-size: clamp(2rem, 8vw, 4.5rem);
-          font-weight: 900;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          color: #fff;
-          text-shadow:
-            0 0 10px #00e5ff,
-            0 0 30px #00e5ff,
-            0 0 60px rgba(0,229,255,0.5);
-          animation: neonPulse 2.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes neonPulse {
-          from {
-            text-shadow:
-              0 0 10px #00e5ff,
-              0 0 30px #00e5ff,
-              0 0 60px rgba(0,229,255,0.5);
-          }
-          to {
-            text-shadow:
-              0 0 20px #ff00c8,
-              0 0 50px #ff00c8,
-              0 0 80px rgba(255,0,200,0.6),
-              0 0 6px #fff;
-          }
-        }
-
-        .tagline {
-          font-family: 'Orbitron', 'Arial', sans-serif;
-          font-size: clamp(0.85rem, 3vw, 1.2rem);
-          color: rgba(255,255,255,0.6);
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-        }
-      `}</style>
+    <div className="page-content">
+      <h1 className="coming-soon-text">COMING SOON</h1>
+      <p className="tagline">Something amazing is on its way ✨</p>
     </div>
   );
 }
@@ -155,7 +40,12 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-          <Router />
+          <div className="app-shell">
+            <Header />
+            <main className="main-content">
+              <Router />
+            </main>
+          </div>
         </WouterRouter>
       </TooltipProvider>
     </QueryClientProvider>
