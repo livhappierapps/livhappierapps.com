@@ -42,7 +42,7 @@ function ComingSoon() {
         .coming-soon-page {
           min-height: 100vh;
           width: 100%;
-          background: #0a0a0f;
+          background: #36454f;
           display: flex;
           align-items: center;
           justify-content: center;
