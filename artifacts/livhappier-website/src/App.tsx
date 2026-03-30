@@ -85,30 +85,31 @@ function ComingSoon() {
         }
 
         .logo {
-          width: min(340px, 85vw);
+          width: min(340px, 82vw);
           height: auto;
-          border-radius: 24px;
+          border-radius: 20px;
           position: relative;
           z-index: 2;
-          filter: drop-shadow(0 0 30px rgba(0, 229, 255, 0.5)) drop-shadow(0 0 60px rgba(255, 0, 200, 0.3));
           animation: floatLogo 4s ease-in-out infinite;
+          outline: 2px solid rgba(0, 229, 255, 0.3);
         }
 
         .glow-ring {
           position: absolute;
-          inset: -12px;
-          border-radius: 32px;
-          background: conic-gradient(
-            from 0deg,
-            #00e5ff,
-            #ff00c8,
-            #7b2fff,
-            #00e5ff
-          );
-          opacity: 0.4;
-          filter: blur(16px);
-          animation: spinGlow 6s linear infinite;
+          inset: -4px;
+          border-radius: 24px;
+          background: linear-gradient(135deg, #00e5ff, #ff00c8, #7b2fff, #00e5ff);
+          background-size: 300% 300%;
+          animation: gradientShift 4s ease infinite;
+          opacity: 0.7;
+          filter: blur(8px);
           z-index: 1;
+        }
+
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
         }
 
         @keyframes floatLogo {
