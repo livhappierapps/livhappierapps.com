@@ -8,8 +8,7 @@ const queryClient = new QueryClient();
 function ComingSoon() {
   return (
     <div className="coming-soon-page">
-      <div className="stars" />
-      <div className="content">
+      <div className="logo-section">
         <div className="logo-wrapper">
           <img
             src="/logo.jpeg"
@@ -18,19 +17,12 @@ function ComingSoon() {
           />
           <div className="glow-ring" />
         </div>
-        <h1 className="coming-soon-text">
-          <span className="c">C</span>
-          <span className="o">O</span>
-          <span className="m">M</span>
-          <span className="i">I</span>
-          <span className="n">N</span>
-          <span className="g">G</span>
-          <span className="space"> </span>
-          <span className="s">S</span>
-          <span className="o2">O</span>
-          <span className="o3">O</span>
-          <span className="n2">N</span>
-        </h1>
+      </div>
+
+      <div className="candy-cane-divider" />
+
+      <div className="content">
+        <h1 className="coming-soon-text">COMING SOON</h1>
         <p className="tagline">Something amazing is on its way ✨</p>
       </div>
 
@@ -42,38 +34,38 @@ function ComingSoon() {
         .coming-soon-page {
           min-height: 100vh;
           width: 100%;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+        }
+
+        .logo-section {
           background: #36454f;
           display: flex;
           align-items: center;
           justify-content: center;
-          overflow: hidden;
-          position: relative;
+          padding: 3rem 2rem;
+          width: 100%;
         }
 
-        .stars {
-          position: absolute;
-          inset: 0;
-          background-image:
-            radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.6) 0%, transparent 100%),
-            radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
-            radial-gradient(1px 1px at 50% 60%, rgba(255,255,255,0.4) 0%, transparent 100%),
-            radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,0.5) 0%, transparent 100%),
-            radial-gradient(1px 1px at 70% 85%, rgba(255,255,255,0.4) 0%, transparent 100%),
-            radial-gradient(1px 1px at 35% 15%, rgba(255,255,255,0.6) 0%, transparent 100%),
-            radial-gradient(1px 1px at 90% 50%, rgba(255,255,255,0.3) 0%, transparent 100%),
-            radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,0.5) 0%, transparent 100%),
-            radial-gradient(1px 1px at 60% 35%, rgba(255,255,255,0.4) 0%, transparent 100%),
-            radial-gradient(2px 2px at 45% 90%, rgba(0,229,255,0.3) 0%, transparent 100%),
-            radial-gradient(2px 2px at 75% 20%, rgba(255,0,200,0.3) 0%, transparent 100%);
+        .candy-cane-divider {
+          width: 100%;
+          height: 60px;
+          background-image: url('/candy-cane.jpeg');
+          background-repeat: repeat-x;
+          background-size: auto 100%;
+          flex-shrink: 0;
         }
 
         .content {
+          flex: 1;
+          background: #36454f;
           display: flex;
           flex-direction: column;
           align-items: center;
+          justify-content: center;
           gap: 2rem;
-          z-index: 1;
-          padding: 2rem;
+          padding: 3rem 2rem;
           text-align: center;
         }
 
