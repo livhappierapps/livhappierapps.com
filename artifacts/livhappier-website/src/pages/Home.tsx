@@ -57,7 +57,7 @@ export default function Home() {
               title="EdenMux"
               description="Our flagship experience is now live. EdenMux connects your digital worlds with unprecedented control and a stunning neon interface. Dive into the matrix."
               status="available"
-              link="#" // Stub for edenmux.livhappierapps.com
+              link="/edenmux"
               colorTheme="cyan"
               delay={0.2}
             />

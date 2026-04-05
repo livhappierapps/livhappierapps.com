@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Header } from "@/components/Header";
 import Home from "@/pages/Home";
 import Community from "@/pages/Community";
+import EdenMux from "@/pages/EdenMux";
 import NotFound from "@/pages/not-found";
 import "./index.css";
 
@@ -21,6 +22,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/community" component={Community} />
+      <Route path="/edenmux" component={EdenMux} />
       <Route component={NotFound} />
     </Switch>
   );
