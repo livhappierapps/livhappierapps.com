@@ -1,35 +1,26 @@
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Header } from "@/components/Header";
+import Home from "@/pages/Home";
+import Community from "@/pages/Community";
 import NotFound from "@/pages/not-found";
-import "./app.css";
+import "./index.css";
 
-const queryClient = new QueryClient();
-
-function Header() {
-  return (
-    <header className="site-header">
-      <div className="header-logo-bar">
-        <img src="/logo.jpeg" alt="LivHappier Apps" className="header-logo" />
-      </div>
-      <div className="candy-cane-bar" />
-    </header>
-  );
-}
-
-function ComingSoon() {
-  return (
-    <div className="page-content">
-      <h1 className="coming-soon-text">COMING SOON</h1>
-      <p className="tagline">Something amazing is on its way ✨</p>
-    </div>
-  );
-}
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={ComingSoon} />
+      <Route path="/" component={Home} />
+      <Route path="/community" component={Community} />
       <Route component={NotFound} />
     </Switch>
   );

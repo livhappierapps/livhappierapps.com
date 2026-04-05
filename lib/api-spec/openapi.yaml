@@ -1,6 +1,5 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
   description: API specification
@@ -10,6 +9,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: messages
+    description: Community chat messages
 paths:
   /healthz:
     get:
@@ -24,6 +25,38 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /messages:
+    get:
+      operationId: getMessages
+      tags: [messages]
+      summary: Get community messages
+      description: Returns the latest community chat messages
+      responses:
+        "200":
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Message"
+    post:
+      operationId: createMessage
+      tags: [messages]
+      summary: Post a community message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateMessage"
+      responses:
+        "201":
+          description: Message created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +66,34 @@ components:
           type: string
       required:
         - status
-
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        content:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - username
+        - content
+        - createdAt
+    CreateMessage:
+      type: object
+      properties:
+        username:
+          type: string
+          minLength: 1
+          maxLength: 30
+        content:
+          type: string
+          minLength: 1
+          maxLength: 500
+      required:
+        - username
+        - content

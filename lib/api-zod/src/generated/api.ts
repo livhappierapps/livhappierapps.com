@@ -14,3 +14,27 @@ import * as zod from "zod";
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
 });
+
+/**
+ * Returns the latest community chat messages
+ * @summary Get community messages
+ */
+export const GetMessagesResponseItem = zod.object({
+  id: zod.number(),
+  username: zod.string(),
+  content: zod.string(),
+  createdAt: zod.coerce.date(),
+});
+export const GetMessagesResponse = zod.array(GetMessagesResponseItem);
+
+/**
+ * @summary Post a community message
+ */
+export const createMessageBodyUsernameMax = 30;
+
+export const createMessageBodyContentMax = 500;
+
+export const CreateMessageBody = zod.object({
+  username: zod.string().min(1).max(createMessageBodyUsernameMax),
+  content: zod.string().min(1).max(createMessageBodyContentMax),
+});

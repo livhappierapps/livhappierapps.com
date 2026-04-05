@@ -1,0 +1,12 @@
+packages:
+  "framer-motion": "For smooth page transitions and lively chat message animations"
+  "date-fns": "For formatting chat message timestamps beautifully"
+  "clsx": "Utility for constructing className conditionally"
+  "tailwind-merge": "Utility for merging tailwind classes without style conflicts"
+  "lucide-react": "For beautiful vector icons across the app"
+  "zod": "For runtime validation of API responses"
+
+notes:
+  - Polling /api/messages every 3 seconds for real-time community chat functionality
+  - Assuming API base is /api
+  - Existing assets logo.jpeg, candy-cane.jpeg, and bg.jpeg are already in the public directory

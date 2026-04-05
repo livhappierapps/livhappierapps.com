@@ -8,3 +8,23 @@
 export interface HealthStatus {
   status: string;
 }
+
+export interface Message {
+  id: number;
+  username: string;
+  content: string;
+  createdAt: string;
+}
+
+export interface CreateMessage {
+  /**
+   * @minLength 1
+   * @maxLength 30
+   */
+  username: string;
+  /**
+   * @minLength 1
+   * @maxLength 500
+   */
+  content: string;
+}
