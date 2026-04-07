@@ -65,27 +65,35 @@ export default function Home() {
 
           {/* Coming Soon Apps */}
           <AppCard 
-            title="NeonVault"
-            description="Secure your digital assets with military-grade encryption wrapped in an aesthetic that screams cyberpunk."
+            title="AppArchy"
+            description="App Building Anarchy. The revolution begins soon!"
             status="coming_soon"
             colorTheme="pink"
             delay={0.4}
           />
 
           <AppCard 
-            title="SoulSync"
-            description="The ultimate mood and habit tracker for the perpetually online. Analyze your vibe."
+            title="TimeAtlus"
+            description="Your new best friend and time manager. Coming soon!"
             status="coming_soon"
-            colorTheme="purple"
+            colorTheme="cyan"
             delay={0.6}
           />
           
           <AppCard 
-            title="GhostLink"
-            description="Ephemeral messaging and file transfer. What happens here, stays here."
+            title="RealizeMe"
+            description="Photo editing built to keep it real. Coming Soon!"
+            status="coming_soon"
+            colorTheme="purple"
+            delay={0.8}
+          />
+
+          <AppCard 
+            title="AIs&Ears"
+            description="Eyes and ears for your best AI friends. Coming VERY soon!"
             status="coming_soon"
             colorTheme="pink"
-            delay={0.8}
+            delay={1.0}
           />
         </div>
       </section>
