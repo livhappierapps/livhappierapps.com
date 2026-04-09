@@ -27,7 +27,7 @@ export default function Home() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="mt-8 text-4xl md:text-6xl font-display font-black text-white uppercase tracking-widest"
         >
-          Welcome to <span className="text-gradient">LivHappier</span>
+          Welcome to <span className="text-gradient">LivHappierApps</span>
         </motion.h1>
         
         <motion.p 
