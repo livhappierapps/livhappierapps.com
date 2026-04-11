@@ -1,8 +1,8 @@
-# Workspace
+# LivHappierApps Workspace
 
 ## Overview
 
-pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.
+pnpm workspace monorepo using TypeScript. The project powers **LivHappierApps** — a central hub website for a suite of next-generation apps, backed by an Express API. Published and live at `livhappierapps.com`.
 
 ## Stack
 
@@ -10,29 +10,30 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - **Node.js version**: 24
 - **Package manager**: pnpm
 - **TypeScript version**: 5.9
+- **Frontend**: React 19 + Vite 7.3.2 + Tailwind CSS 4 + Framer Motion
 - **API framework**: Express 5
-- **Database**: PostgreSQL + Drizzle ORM
+- **Database**: PostgreSQL + Drizzle ORM 0.45.2
 - **Validation**: Zod (`zod/v4`), `drizzle-zod`
 - **API codegen**: Orval (from OpenAPI spec)
-- **Build**: esbuild (CJS bundle)
+- **Build**: esbuild (API), Vite (frontend)
 
 ## Structure
 
 ```text
-artifacts-monorepo/
-├── artifacts/              # Deployable applications
-│   └── api-server/         # Express API server
-├── lib/                    # Shared libraries
-│   ├── api-spec/           # OpenAPI spec + Orval codegen config
-│   ├── api-client-react/   # Generated React Query hooks
-│   ├── api-zod/            # Generated Zod schemas from OpenAPI
-│   └── db/                 # Drizzle ORM schema + DB connection
-├── scripts/                # Utility scripts (single workspace package)
-│   └── src/                # Individual .ts scripts, run via `pnpm --filter @workspace/scripts run <script>`
-├── pnpm-workspace.yaml     # pnpm workspace (artifacts/*, lib/*, lib/integrations/*, scripts)
-├── tsconfig.base.json      # Shared TS options (composite, bundler resolution, es2022)
-├── tsconfig.json           # Root TS project references
-└── package.json            # Root package with hoisted devDeps
+workspace/
+├── artifacts/                    # Deployable applications
+│   ├── livhappier-website/       # React + Vite frontend (livhappierapps.com)
+│   └── api-server/               # Express API server (/api)
+├── lib/                          # Shared libraries
+│   ├── api-spec/                 # OpenAPI spec + Orval codegen config
+│   ├── api-client-react/         # Generated React Query hooks
+│   ├── api-zod/                  # Generated Zod schemas from OpenAPI
+│   └── db/                       # Drizzle ORM schema + DB connection
+├── scripts/                      # Utility scripts
+├── pnpm-workspace.yaml           # pnpm workspace + catalog + overrides
+├── tsconfig.base.json            # Shared TS options
+├── tsconfig.json                 # Root TS project references
+└── package.json                  # Root package with hoisted devDeps
 ```
 
 ## TypeScript & Composite Projects
@@ -40,8 +41,8 @@ artifacts-monorepo/
 Every package extends `tsconfig.base.json` which sets `composite: true`. The root `tsconfig.json` lists all packages as project references. This means:
 
 - **Always typecheck from the root** — run `pnpm run typecheck` (which runs `tsc --build --emitDeclarationOnly`). This builds the full dependency graph so that cross-package imports resolve correctly. Running `tsc` inside a single package will fail if its dependencies haven't been built yet.
-- **`emitDeclarationOnly`** — we only emit `.d.ts` files during typecheck; actual JS bundling is handled by esbuild/tsx/vite...etc, not `tsc`.
-- **Project references** — when package A depends on package B, A's `tsconfig.json` must list B in its `references` array. `tsc --build` uses this to determine build order and skip up-to-date packages.
+- **`emitDeclarationOnly`** — we only emit `.d.ts` files during typecheck; actual JS bundling is handled by esbuild/tsx/vite, not `tsc`.
+- **Project references** — when package A depends on package B, A's `tsconfig.json` must list B in its `references` array.
 
 ## Root Scripts
 
@@ -49,6 +50,19 @@ Every package extends `tsconfig.base.json` which sets `composite: true`. The roo
 - `pnpm run typecheck` — runs `tsc --build --emitDeclarationOnly` using project references
 
 ## Packages
+
+### `artifacts/livhappier-website` (`@workspace/livhappier-website`)
+
+React + Vite frontend for the LivHappierApps website. Deployed as a static site.
+
+- Entry: `index.html` → `src/main.tsx`
+- Routing: `wouter` — pages live in `src/pages/`
+- Styling: Tailwind CSS 4 + shadcn/ui components in `src/components/ui/`
+- Animations: Framer Motion
+- Home page: `src/pages/Home.tsx` — hero section with "Welcome to LivHappierApps" heading and app cards grid
+- Build output: `dist/public/` (served as static files in production)
+- `pnpm --filter @workspace/livhappier-website run dev` — dev server
+- `pnpm --filter @workspace/livhappier-website run build` — production build
 
 ### `artifacts/api-server` (`@workspace/api-server`)
 
@@ -59,24 +73,20 @@ Express 5 API server. Routes live in `src/routes/` and use `@workspace/api-zod` 
 - Routes: `src/routes/index.ts` mounts sub-routers; `src/routes/health.ts` exposes `GET /health` (full path: `/api/health`)
 - Depends on: `@workspace/db`, `@workspace/api-zod`
 - `pnpm --filter @workspace/api-server run dev` — run the dev server
-- `pnpm --filter @workspace/api-server run build` — production esbuild bundle (`dist/index.cjs`)
-- Build bundles an allowlist of deps (express, cors, pg, drizzle-orm, zod, etc.) and externalizes the rest
+- `pnpm --filter @workspace/api-server run build` — production esbuild bundle (`dist/index.mjs`)
 
 ### `lib/db` (`@workspace/db`)
 
-Database layer using Drizzle ORM with PostgreSQL. Exports a Drizzle client instance and schema models.
+Database layer using Drizzle ORM with PostgreSQL.
 
 - `src/index.ts` — creates a `Pool` + Drizzle instance, exports schema
-- `src/schema/index.ts` — barrel re-export of all models
-- `src/schema/<modelname>.ts` — table definitions with `drizzle-zod` insert schemas (no models definitions exist right now)
 - `drizzle.config.ts` — Drizzle Kit config (requires `DATABASE_URL`, automatically provided by Replit)
 - Exports: `.` (pool, db, schema), `./schema` (schema only)
-
-Production migrations are handled by Replit when publishing. In development, we just use `pnpm --filter @workspace/db run push`, and we fallback to `pnpm --filter @workspace/db run push-force`.
+- Migrations: `pnpm --filter @workspace/db run push` (dev), `push-force` as fallback
 
 ### `lib/api-spec` (`@workspace/api-spec`)
 
-Owns the OpenAPI 3.1 spec (`openapi.yaml`) and the Orval config (`orval.config.ts`). Running codegen produces output into two sibling packages:
+Owns the OpenAPI 3.1 spec (`openapi.yaml`) and the Orval config (`orval.config.ts`). Running codegen produces output into:
 
 1. `lib/api-client-react/src/generated/` — React Query hooks + fetch client
 2. `lib/api-zod/src/generated/` — Zod schemas
@@ -85,12 +95,29 @@ Run codegen: `pnpm --filter @workspace/api-spec run codegen`
 
 ### `lib/api-zod` (`@workspace/api-zod`)
 
-Generated Zod schemas from the OpenAPI spec (e.g. `HealthCheckResponse`). Used by `api-server` for response validation.
+Generated Zod schemas from the OpenAPI spec. Used by `api-server` for response validation.
 
 ### `lib/api-client-react` (`@workspace/api-client-react`)
 
-Generated React Query hooks and fetch client from the OpenAPI spec (e.g. `useHealthCheck`, `healthCheck`).
+Generated React Query hooks and fetch client from the OpenAPI spec.
 
 ### `scripts` (`@workspace/scripts`)
 
-Utility scripts package. Each script is a `.ts` file in `src/` with a corresponding npm script in `package.json`. Run scripts via `pnpm --filter @workspace/scripts run <script>`. Scripts can import any workspace package (e.g., `@workspace/db`) by adding it as a dependency in `scripts/package.json`.
+Utility scripts package. Run via `pnpm --filter @workspace/scripts run <script>`.
+
+## Deployment
+
+- Both artifacts are published via Replit hosting
+- Website (`livhappier-website`) is deployed as a **static** site
+- API server is deployed as an **autoscale** process with a health check at `/api/healthz`
+- Custom domain: `livhappierapps.com` (configured in Replit deployment settings)
+- After any code change, re-publish via the Deploy panel to push updates live
+
+## Dependency Management
+
+Shared dependency versions are managed via the `catalog:` section in `pnpm-workspace.yaml`. Key pinned versions:
+
+- `drizzle-orm`: `^0.45.2`
+- `vite`: `^7.3.2`
+- `lodash` override: `^4.18.0`
+- `path-to-regexp` override: `^8.4.0`
