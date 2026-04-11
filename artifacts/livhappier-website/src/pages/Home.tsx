@@ -6,21 +6,6 @@ export default function Home() {
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Hero Section */}
       <section className="flex flex-col items-center text-center mb-24 mt-8">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          className="relative"
-        >
-          {/* Large Hero Logo */}
-          <img 
-            src="/logo.png" 
-            alt="LivHappier Apps Logo" 
-            className="w-64 md:w-80 lg:w-96 h-auto relative z-10 filter drop-shadow-[0_0_30px_rgba(0,229,255,0.6)]"
-          />
-          <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/20 via-secondary/20 to-accent/20 blur-3xl -z-10" />
-        </motion.div>
-        
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

@@ -4,6 +4,7 @@ import { Home, MessageSquare, Grip } from "lucide-react";
 
 export function Header() {
   const [location] = useLocation();
+  const isHome = location === "/";
 
   const navLinks = [
     { href: "/", label: "Home", icon: Home },
@@ -14,9 +15,9 @@ export function Header() {
   return (
     <header className="site-header">
       {/* Top Logo Bar */}
-      <div className="header-logo-bar">
+      <div className={cn("header-logo-bar", isHome && "header-logo-bar-home")}>
         <Link href="/">
-          <img src="/logo.jpeg" alt="LivHappier Apps" className="header-logo cursor-pointer hover:scale-105 transition-transform" />
+          <img src="/logo.png" alt="LivHappier Apps" className={cn("header-logo cursor-pointer hover:scale-105 transition-transform", isHome && "header-logo-home")} />
         </Link>
       </div>
       

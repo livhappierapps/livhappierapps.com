@@ -1,4 +1,4 @@
-import { Switch, Route, Router as WouterRouter } from "wouter";
+import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Header } from "@/components/Header";
@@ -28,17 +28,26 @@ function Router() {
   );
 }
 
+function AppShell() {
+  const [location] = useLocation();
+  const isHome = location === "/";
+
+  return (
+    <div className="app-shell">
+      <Header />
+      <main className={isHome ? "main-content main-content-home" : "main-content"}>
+        <Router />
+      </main>
+    </div>
+  );
+}
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-          <div className="app-shell">
-            <Header />
-            <main className="main-content">
-              <Router />
-            </main>
-          </div>
+          <AppShell />
         </WouterRouter>
       </TooltipProvider>
     </QueryClientProvider>

@@ -95,7 +95,7 @@
 
 /* ── Main content pushed below fixed header ── */
 .main-content {
-  margin-top: 170px; /* logo bar + candy cane + nav bar */
+  margin-top: 170px; /* logo-bar(70px) + candy-bar(40px) + nav-bar(60px) */
   flex: 1;
   min-height: calc(100vh - 170px);
   background-color: #36454f;
@@ -105,6 +105,12 @@
   background-size: 300px auto;
   display: flex;
   flex-direction: column;
+}
+
+/* Home page has bigger logo so header is taller */
+.main-content-home {
+  margin-top: 292px; /* logo-bar(192px) + candy-bar(40px) + nav-bar(60px) */
+  min-height: calc(100vh - 292px);
 }
 
 /* ── Sticky Header Elements ── */
@@ -126,12 +132,21 @@
   height: 70px;
 }
 
+.header-logo-bar-home {
+  height: 192px;
+  padding: 1rem;
+}
+
 .header-logo {
   height: 55px;
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6)) drop-shadow(0 0 15px rgba(255, 0, 200, 0.4));
   animation: floatLogo 4s ease-in-out infinite;
+}
+
+.header-logo-home {
+  height: 160px;
 }
 
 .candy-cane-bar {
