@@ -14,9 +14,9 @@ export default function Home() {
         >
           {/* Large Hero Logo */}
           <img 
-            src="/logo.jpeg" 
+            src="/logo.png" 
             alt="LivHappier Apps Logo" 
-            className="w-64 md:w-80 lg:w-96 h-auto mix-blend-screen relative z-10 filter drop-shadow-[0_0_30px_rgba(0,229,255,0.6)]"
+            className="w-64 md:w-80 lg:w-96 h-auto relative z-10 filter drop-shadow-[0_0_30px_rgba(0,229,255,0.6)]"
           />
           <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/20 via-secondary/20 to-accent/20 blur-3xl -z-10" />
         </motion.div>
