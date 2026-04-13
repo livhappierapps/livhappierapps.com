@@ -57,9 +57,12 @@ React + Vite frontend for the LivHappierApps website. Deployed as a static site.
 
 - Entry: `index.html` → `src/main.tsx`
 - Routing: `wouter` — pages live in `src/pages/`
-- Styling: Tailwind CSS 4 + shadcn/ui components in `src/components/ui/`
+- Styling: Tailwind CSS 4 + shadcn/ui components in `src/components/ui/`; all custom CSS lives in `src/index.css` (`src/app.css` exists but is **not imported** — do not add styles there)
 - Animations: Framer Motion
-- Home page: `src/pages/Home.tsx` — hero section with "Welcome to LivHappierApps" heading and app cards grid
+- Logo: `public/logo.png` — neon LivHappierApps script logo with transparent background
+- Header (`src/components/Header.tsx`): fixed sticky header with logo bar → candy-cane bar → nav bar. On the home page (`/`) the logo renders large (`header-logo-home`, 160px); on all other pages it renders at the standard size (55px). The `AppShell` in `App.tsx` applies `main-content-home` class on the home route to adjust the top margin to match the taller header
+- Home page (`src/pages/Home.tsx`): "Welcome to LivHappierApps" heading + app cards grid; logo lives in the header, not duplicated in page content
+- Community page (`src/pages/Community.tsx`): live chat with "Join the Conversation" entry screen; uses PostgreSQL via the API server for message persistence
 - Build output: `dist/public/` (served as static files in production)
 - `pnpm --filter @workspace/livhappier-website run dev` — dev server
 - `pnpm --filter @workspace/livhappier-website run build` — production build
@@ -109,7 +112,7 @@ Utility scripts package. Run via `pnpm --filter @workspace/scripts run <script>`
 
 - Both artifacts are published via Replit hosting
 - Website (`livhappier-website`) is deployed as a **static** site
-- API server is deployed as an **autoscale** process with a health check at `/api/healthz`
+- API server is deployed as a **vm (always on)** process — runs 24/7 so the community chat is available at any time without cold starts; health check at `/api/healthz`
 - Custom domain: `livhappierapps.com` (configured in Replit deployment settings)
 - After any code change, re-publish via the Deploy panel to push updates live
 
