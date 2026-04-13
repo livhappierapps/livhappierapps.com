@@ -54,7 +54,7 @@ export default function Community() {
           
           <div className="text-center mb-8">
             <User className="w-16 h-16 mx-auto text-secondary mb-4 drop-shadow-[0_0_15px_rgba(255,0,200,0.8)]" />
-            <h2 className="text-3xl font-display font-bold text-white neon-text-pink">Enter The Void</h2>
+            <h2 className="text-3xl font-display font-bold text-white neon-text-pink">Join the Conversation</h2>
             <p className="text-muted-foreground mt-2 font-body">Choose your handle to join the community chat.</p>
           </div>
 
