@@ -1,7 +1,17 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { AppCard } from "@/components/AppCard";
 
 export default function Home() {
+  const [amount, setAmount] = useState("");
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value.replace(/[^0-9.]/g, "");
+    setAmount(raw);
+  };
+
+  const displayValue = amount === "" ? "" : amount;
+
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Hero Section */}
@@ -82,6 +92,59 @@ export default function Home() {
           />
         </div>
       </section>
+
+      {/* About the Developer Section */}
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="about-dev-section mt-32 mb-12"
+      >
+        <div className="flex items-center gap-4 mb-10">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-white neon-text-pink whitespace-nowrap">
+            About the Developer
+          </h2>
+          <div className="h-[2px] flex-1 bg-gradient-to-r from-secondary to-transparent opacity-50" />
+        </div>
+
+        <div className="about-dev-card">
+          <div className="about-dev-photo-wrap">
+            <img
+              src="/developer.jpeg"
+              alt="The Developer"
+              className="about-dev-photo"
+            />
+          </div>
+
+          <div className="about-dev-body">
+            <p className="about-dev-bio">
+              The developer for LivHappierApps is a single Mom of four. Building apps is her only source of income. If anyone could use a cup of coffee it's her. 😂
+            </p>
+
+            <p className="about-dev-cta">
+              Buy the developer a cup of coffee?
+            </p>
+
+            <div className="about-dev-tip-wrap">
+              <span className="about-dev-tip-symbol">$</span>
+              <input
+                type="text"
+                inputMode="decimal"
+                value={displayValue}
+                onChange={handleAmountChange}
+                placeholder="0.00"
+                className="about-dev-tip-input"
+                aria-label="Tip amount in dollars"
+              />
+              <button className="about-dev-tip-btn">
+                ☕ Send
+              </button>
+            </div>
+            <p className="about-dev-tip-note">Tips handled via PayPal — link coming soon!</p>
+          </div>
+        </div>
+      </motion.section>
     </div>
   );
 }

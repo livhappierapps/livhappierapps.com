@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
-import { Home, MessageSquare, Grip } from "lucide-react";
+import { Home, MessageSquare, Grip, Settings } from "lucide-react";
 
 export function Header() {
   const [location] = useLocation();
@@ -10,6 +10,7 @@ export function Header() {
     { href: "/", label: "Home", icon: Home },
     { href: "/#apps", label: "Apps", icon: Grip },
     { href: "/community", label: "Community", icon: MessageSquare },
+    { href: "/settings", label: "Settings", icon: Settings },
   ];
 
   return (

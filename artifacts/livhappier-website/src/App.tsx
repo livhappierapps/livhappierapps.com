@@ -6,6 +6,7 @@ import { SkullBackground } from "@/components/SkullBackground";
 import Home from "@/pages/Home";
 import Community from "@/pages/Community";
 import EdenMux from "@/pages/EdenMux";
+import Settings from "@/pages/Settings";
 import NotFound from "@/pages/not-found";
 import "./index.css";
 
@@ -24,6 +25,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/community" component={Community} />
       <Route path="/edenmux" component={EdenMux} />
+      <Route path="/settings" component={Settings} />
       <Route component={NotFound} />
     </Switch>
   );
