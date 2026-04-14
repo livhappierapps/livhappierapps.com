@@ -63,12 +63,12 @@ React + Vite frontend for the LivHappierApps website. Deployed as a static site.
 - Background: `src/components/SkullBackground.tsx` — fixed full-screen layer of scattered skull images (`public/skull.png`) at varying sizes/positions/opacities with `mix-blend-mode: screen`. Rendered at `z-index: 0` behind all content. Page body background is `#0d0d14` (deep dark)
 - Header (`src/components/Header.tsx`): fixed sticky header with logo bar → candy-cane bar → nav bar. On the home page (`/`) the logo renders large (`header-logo-home`, 160px); on all other pages it renders at the standard size (55px). The `AppShell` in `App.tsx` applies `main-content-home` class on the home route to adjust the top margin. Nav links: Home, Apps, Community, Settings
 - Pages:
-  - `src/pages/Home.tsx` — Hero heading + app cards grid + **About the Developer** section at the bottom (developer photo, bio, coffee tip input bar)
+  - `src/pages/Home.tsx` — Hero heading + app cards grid + **About the Developer** section at the bottom (developer photo `public/developer.jpeg`, bio, Cash App QR code `public/cashapp-qr.png` linking to `https://cash.app/$Oblivionhappier58137`, cashtag `$Oblivionhappier58137`)
   - `src/pages/Community.tsx` — Live chat with "Join the Conversation" entry screen; uses PostgreSQL via the API server for message persistence
   - `src/pages/EdenMux.tsx` — EdenMux app landing page
   - `src/pages/Settings.tsx` — Settings page with placeholder for future preferences + Contact section at the bottom ("Need extra support or need to contact the developer?" + `oblivionhappier@icloud.com` mailto link)
   - `src/pages/not-found.tsx` — 404 page
-- Public assets: `public/logo.png`, `public/skull.png`, `public/developer.jpeg` (developer avatar)
+- Public assets: `public/logo.png`, `public/skull.png`, `public/developer.jpeg` (developer avatar), `public/cashapp-qr.png` (Cash App QR code for tips)
 - Build output: `dist/public/` (served as static files in production)
 - Build target: `chrome89, firefox89, safari14, edge89` (set in `vite.config.ts`) — ensures compatibility with modern Android and iOS devices
 - `pnpm --filter @workspace/livhappier-website run dev` — dev server
