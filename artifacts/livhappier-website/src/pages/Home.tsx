@@ -6,14 +6,26 @@ export default function Home() {
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Hero Section */}
       <section className="flex flex-col items-center text-center mb-24 mt-8">
-        <motion.h1 
+        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-8 text-4xl md:text-6xl font-display font-black text-white uppercase tracking-widest"
+          className="mt-8 text-4xl md:text-5xl font-display font-black text-white uppercase tracking-widest"
         >
-          Welcome to <span className="text-gradient">LivHappierApps</span>
+          Welcome to
         </motion.h1>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-4"
+        >
+          <img
+            src="/logo.png"
+            alt="LivHappierApps"
+            className="hero-brand-logo"
+          />
+        </motion.div>
         
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
@@ -109,7 +121,9 @@ export default function Home() {
 
           <div className="about-dev-body">
             <p className="about-dev-bio">
-              The developer for LivHappierApps is a single Mom of four. Building apps is her only source of income. If anyone could use a cup of coffee it's her. 😂
+              The developer for{" "}
+              <img src="/logo.png" alt="LivHappierApps" className="about-dev-inline-logo" />
+              {" "}is a single Mom of four. Building apps is her only source of income. If anyone could use a cup of coffee it's her. 😂
             </p>
 
             <p className="about-dev-cta">

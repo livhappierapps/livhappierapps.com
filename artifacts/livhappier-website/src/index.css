@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Nunito:wght@400;600;700&display=swap');
 @import "tailwindcss";
 
 @theme inline {
-  --font-display: 'Orbitron', sans-serif;
-  --font-body: 'Rajdhani', sans-serif;
+  --font-display: 'Exo 2', sans-serif;
+  --font-body: 'Nunito', sans-serif;
 
-  --color-background: #111116; /* Deep dark fallback */
+  --color-background: #4a4a4a; /* Medium charcoal */
   --color-foreground: #f8fafc;
   
   --color-card: rgba(20, 20, 30, 0.7);
@@ -40,7 +40,7 @@
 
   body {
     font-family: var(--font-body);
-    background-color: #0d0d14;
+    background-color: #4a4a4a;
     color: var(--color-foreground);
     -webkit-font-smoothing: antialiased;
   }
@@ -95,18 +95,18 @@
 
 /* ── Main content pushed below fixed header ── */
 .main-content {
-  margin-top: 170px; /* logo-bar(70px) + candy-bar(40px) + nav-bar(60px) */
+  margin-top: 200px; /* logo-bar(100px) + candy-bar(40px) + nav-bar(60px) */
   flex: 1;
-  min-height: calc(100vh - 170px);
-  background-color: #0d0d14;
+  min-height: calc(100vh - 200px);
+  background-color: #4a4a4a;
   display: flex;
   flex-direction: column;
 }
 
 /* Home page has bigger logo so header is taller */
 .main-content-home {
-  margin-top: 292px; /* logo-bar(192px) + candy-bar(40px) + nav-bar(60px) */
-  min-height: calc(100vh - 292px);
+  margin-top: 320px; /* logo-bar(220px) + candy-bar(40px) + nav-bar(60px) */
+  min-height: calc(100vh - 320px);
 }
 
 /* ── Sticky Header Elements ── */
@@ -116,25 +116,25 @@
   left: 0;
   right: 0;
   z-index: 100;
-  background: #0d0d14;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  background: #3a3a3a;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
 .header-logo-bar {
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0.5rem 1rem;
-  height: 70px;
 }
 
 .header-logo-bar-home {
-  height: 192px;
+  height: 220px;
   padding: 1rem;
 }
 
 .header-logo {
-  height: 55px;
+  height: 80px;
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6)) drop-shadow(0 0 15px rgba(255, 0, 200, 0.4));
@@ -142,7 +142,7 @@
 }
 
 .header-logo-home {
-  height: 160px;
+  height: 190px;
 }
 
 .candy-cane-bar {
@@ -157,7 +157,7 @@
 
 .nav-bar {
   height: 60px;
-  background: rgba(20, 20, 25, 0.95);
+  background: rgba(45, 45, 45, 0.97);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(0, 229, 255, 0.2);
   display: flex;
@@ -194,6 +194,19 @@
 
 .animate-pulse-glow {
   animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* ── Hero Brand Logo ── */
+.hero-brand-logo {
+  height: 120px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 16px rgba(0, 229, 255, 0.7)) drop-shadow(0 0 30px rgba(255, 0, 200, 0.5));
+}
+@media (min-width: 768px) {
+  .hero-brand-logo {
+    height: 160px;
+  }
 }
 
 /* ── About the Developer ── */
@@ -247,6 +260,19 @@
   font-size: 1.05rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.about-dev-inline-logo {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+  vertical-align: middle;
+  filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.5)) drop-shadow(0 0 10px rgba(255, 0, 200, 0.3));
+  display: inline-block;
 }
 
 .about-dev-cta {

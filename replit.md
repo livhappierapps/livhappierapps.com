@@ -58,12 +58,13 @@ React + Vite frontend for the LivHappierApps website. Deployed as a static site.
 - Entry: `index.html` → `src/main.tsx`
 - Routing: `wouter` — pages live in `src/pages/`
 - Styling: Tailwind CSS 4 + shadcn/ui components in `src/components/ui/`; **all custom CSS lives in `src/index.css`** (`src/app.css` exists but is **not imported** — never add styles there). Do **not** use `background-attachment: fixed` — it breaks Android Chrome entirely
+- Fonts: **Exo 2** (display/headings, 400/600/700/900) + **Nunito** (body, 400/600/700) — both imported from Google Fonts. Do NOT revert to Orbitron/Rajdhani
 - Animations: Framer Motion
-- Logo: `public/logo.png` — neon LivHappierApps script logo with transparent background
-- Background: `src/components/SkullBackground.tsx` — fixed full-screen layer of scattered skull images (`public/skull.png`) at varying sizes/positions/opacities with `mix-blend-mode: screen`. Rendered at `z-index: 0` behind all content. Page body background is `#0d0d14` (deep dark)
-- Header (`src/components/Header.tsx`): fixed sticky header with logo bar → candy-cane bar → nav bar. On the home page (`/`) the logo renders large (`header-logo-home`, 160px); on all other pages it renders at the standard size (55px). The `AppShell` in `App.tsx` applies `main-content-home` class on the home route to adjust the top margin. Nav links: Home, Apps, Community, Settings
+- Logo: `public/logo.png` — neon LivHappierApps script logo with transparent background. Used in three places: (1) header (always visible), (2) hero section (`hero-brand-logo` class, 120-160px), (3) inline in developer bio (`about-dev-inline-logo`, 32px). Never type out "LivHappierApps" as plain text in the UI — use the logo image instead
+- Background: `src/components/SkullBackground.tsx` — fixed full-screen layer of skull images (`public/skull.png`) arranged in a 6×10 deterministic grid with bounded jitter to prevent overlap; fixed 52px size per skull, `mix-blend-mode: screen`. Page body background is `#4a4a4a` (medium charcoal grey)
+- Header (`src/components/Header.tsx`): fixed sticky header with logo bar → candy-cane bar → nav bar. On the home page (`/`) the logo renders large (`header-logo-home`, 190px, bar height 220px); on all other pages the logo is 80px (bar height 100px) — always clearly visible. The `AppShell` in `App.tsx` applies `main-content-home` (margin-top 320px) on home and `main-content` (margin-top 200px) elsewhere. Nav links: Home, Apps, Community, Settings
 - Pages:
-  - `src/pages/Home.tsx` — Hero heading + app cards grid + **About the Developer** section at the bottom (developer photo `public/developer.jpeg`, bio, Cash App QR code `public/cashapp-qr.png` linking to `https://cash.app/$Oblivionhappier58137`, cashtag `$Oblivionhappier58137`)
+  - `src/pages/Home.tsx` — Hero "Welcome to" + logo image + tagline; app cards grid; **About the Developer** section at the bottom (developer photo `public/developer.jpeg`, bio with inline logo, Cash App QR code `public/cashapp-qr.png` linking to `https://cash.app/$Oblivionhappier58137`, cashtag `$Oblivionhappier58137`)
   - `src/pages/Community.tsx` — Live chat with "Join the Conversation" entry screen; uses PostgreSQL via the API server for message persistence
   - `src/pages/EdenMux.tsx` — EdenMux app landing page
   - `src/pages/Settings.tsx` — Settings page with placeholder for future preferences + Contact section at the bottom ("Need extra support or need to contact the developer?" + `oblivionhappier@icloud.com` mailto link)
