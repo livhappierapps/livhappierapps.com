@@ -1,17 +1,7 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { AppCard } from "@/components/AppCard";
 
 export default function Home() {
-  const [amount, setAmount] = useState("");
-
-  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const raw = e.target.value.replace(/[^0-9.]/g, "");
-    setAmount(raw);
-  };
-
-  const displayValue = amount === "" ? "" : amount;
-
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Hero Section */}
@@ -126,22 +116,22 @@ export default function Home() {
               Buy the developer a cup of coffee?
             </p>
 
-            <div className="about-dev-tip-wrap">
-              <span className="about-dev-tip-symbol">$</span>
-              <input
-                type="text"
-                inputMode="decimal"
-                value={displayValue}
-                onChange={handleAmountChange}
-                placeholder="0.00"
-                className="about-dev-tip-input"
-                aria-label="Tip amount in dollars"
-              />
-              <button className="about-dev-tip-btn">
-                ☕ Send
-              </button>
+            <div className="about-dev-cashapp">
+              <a
+                href="https://cash.app/$Oblivionhappier58137"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="about-dev-cashapp-link"
+              >
+                <img
+                  src="/cashapp-qr.png"
+                  alt="Cash App QR code for $Oblivionhappier58137"
+                  className="about-dev-cashapp-qr"
+                />
+                <span className="about-dev-cashapp-tag">$Oblivionhappier58137</span>
+              </a>
+              <p className="about-dev-tip-note">Scan or tap to send via Cash App ☕</p>
             </div>
-            <p className="about-dev-tip-note">Tips handled via PayPal — link coming soon!</p>
           </div>
         </div>
       </motion.section>

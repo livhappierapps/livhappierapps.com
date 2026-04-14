@@ -321,7 +321,45 @@
   font-size: 0.78rem;
   color: rgba(255, 255, 255, 0.3);
   font-family: var(--font-body);
-  margin-top: -0.25rem;
+  margin-top: 0.25rem;
+}
+
+.about-dev-cashapp {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.about-dev-cashapp-link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  width: fit-content;
+  transition: transform 0.2s, filter 0.2s;
+}
+.about-dev-cashapp-link:hover {
+  transform: scale(1.03);
+  filter: drop-shadow(0 0 12px rgba(0, 229, 255, 0.5));
+}
+
+.about-dev-cashapp-qr {
+  width: 160px;
+  height: 160px;
+  border-radius: 1rem;
+  border: 2px solid rgba(0, 229, 255, 0.35);
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.2);
+  object-fit: cover;
+}
+
+.about-dev-cashapp-tag {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #00e5ff;
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+  letter-spacing: 0.03em;
 }
 
 /* ── Settings Page ── */
