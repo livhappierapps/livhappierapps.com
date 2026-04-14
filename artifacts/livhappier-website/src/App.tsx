@@ -2,6 +2,7 @@ import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Header } from "@/components/Header";
+import { SkullBackground } from "@/components/SkullBackground";
 import Home from "@/pages/Home";
 import Community from "@/pages/Community";
 import EdenMux from "@/pages/EdenMux";
@@ -34,6 +35,7 @@ function AppShell() {
 
   return (
     <div className="app-shell">
+      <SkullBackground />
       <Header />
       <main className={isHome ? "main-content main-content-home" : "main-content"}>
         <Router />

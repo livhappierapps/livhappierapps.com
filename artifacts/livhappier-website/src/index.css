@@ -40,7 +40,7 @@
 
   body {
     font-family: var(--font-body);
-    background-color: #36454f;
+    background-color: #0d0d14;
     color: var(--color-foreground);
     -webkit-font-smoothing: antialiased;
   }
@@ -98,10 +98,7 @@
   margin-top: 170px; /* logo-bar(70px) + candy-bar(40px) + nav-bar(60px) */
   flex: 1;
   min-height: calc(100vh - 170px);
-  background-color: #36454f;
-  background-image: url('/bg.jpeg');
-  background-repeat: repeat;
-  background-size: 300px auto;
+  background-color: #0d0d14;
   display: flex;
   flex-direction: column;
 }
@@ -119,7 +116,7 @@
   left: 0;
   right: 0;
   z-index: 100;
-  background: #36454f;
+  background: #0d0d14;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
