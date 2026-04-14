@@ -101,7 +101,6 @@
   background-color: #36454f;
   background-image: url('/bg.jpeg');
   background-repeat: repeat;
-  background-attachment: fixed;
   background-size: 300px auto;
   display: flex;
   flex-direction: column;

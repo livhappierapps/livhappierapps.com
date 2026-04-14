@@ -57,6 +57,7 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    target: ["chrome89", "firefox89", "safari14", "edge89"],
   },
   server: {
     port,
