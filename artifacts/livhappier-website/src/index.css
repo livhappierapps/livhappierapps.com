@@ -53,11 +53,16 @@
 
 @layer utilities {
   .glass-panel {
-    background: rgba(30, 35, 45, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(22, 25, 35, 0.92);
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  @supports (backdrop-filter: blur(1px)) {
+    .glass-panel {
+      background: rgba(30, 35, 45, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
   }
 
   .neon-text-cyan {
@@ -157,13 +162,18 @@
 
 .nav-bar {
   height: 60px;
-  background: rgba(45, 45, 45, 0.97);
-  backdrop-filter: blur(10px);
+  background: rgba(38, 38, 38, 0.99);
   border-bottom: 1px solid rgba(0, 229, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 2rem;
+}
+@supports (backdrop-filter: blur(1px)) {
+  .nav-bar {
+    background: rgba(45, 45, 45, 0.97);
+    backdrop-filter: blur(10px);
+  }
 }
 
 /* ── Custom Scrollbar ── */
