@@ -49,7 +49,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Flagship App */}
-          <div className="md:col-span-2 lg:col-span-2">
+          <div className="md:col-span-2 lg:col-span-2 relative">
             <AppCard 
               title="EdenMux"
               description="Our flagship experience is now live. EdenMux connects your digital worlds with unprecedented control and a stunning neon interface. Dive into the matrix."
@@ -57,6 +57,14 @@ export default function Home() {
               link="/edenmux"
               colorTheme="cyan"
               delay={0.2}
+            />
+            {/* Mascot pointing at EdenMux — desktop only */}
+            <img
+              src="/mascot.png"
+              alt=""
+              aria-hidden="true"
+              className="hidden lg:block absolute bottom-6 -right-11 w-20 z-20 drop-shadow-[0_0_18px_rgba(255,0,200,0.6)]"
+              style={{ transform: "scaleX(-1)" }}
             />
           </div>
 
