@@ -139,3 +139,21 @@ Shared dependency versions are managed via the `catalog:` section in `pnpm-works
 - `vite`: `^7.3.2`
 - `lodash` override: `^4.18.0`
 - `path-to-regexp` override: `^8.4.0`
+- `brace-expansion` override: `>=2.0.3` (patches CVE-2026-33750 — zero-step ReDoS)
+- `yaml` override: `>=2.8.3` (patches stack overflow via deeply nested YAML collections)
+
+## Security Posture (last scanned 2026-04-16)
+
+Full scan run: dependency audit + SAST + dataflow (HoundDog).
+
+**Our application code — zero findings.** All flagged items are in Replit's internal agent skill scripts (`.agents/skills/`) and are not part of the deployed app.
+
+| Scanner | Our Code | Notes |
+|---|---|---|
+| SAST | ✅ 0 findings | 14 HIGH + 11 MEDIUM all in `.agents/skills/` — not deployed |
+| HoundDog | ✅ 0 findings | Clean |
+| Dep audit | ✅ patched | brace-expansion + yaml overridden to patched versions |
+
+**Known acceptable risk — picomatch (HIGH):** picomatch@2.3.1 and @4.0.3 both have a ReDoS via extglob quantifiers. These are transitive dev-only dependencies of build tools (vite/rollup). They are **not in the production bundle** and are never exposed to user input. No override was added because forcing a cross-major-version upgrade would break the build — the risk in production is zero.
+
+**PostgreSQL SSL warning in deployment logs**: `SSL modes 'prefer'/'require' are aliases for 'verify-full'` — this is informational, not an error. SSL is being *upgraded* to stricter verification, which is correct and secure.
