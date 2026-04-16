@@ -18,7 +18,7 @@ export function Header() {
       {/* Top Logo Bar */}
       <div className={cn("header-logo-bar", isHome && "header-logo-bar-home")}>
         <Link href="/">
-          <img src="/logo.png" alt="LivHappier Apps" className={cn("header-logo cursor-pointer hover:scale-105 transition-transform", isHome && "header-logo-home")} />
+          <img src="/logo-crystal.jpeg" alt="LivHappier Apps" className={cn("header-logo", isHome && "header-logo-home")} />
         </Link>
       </div>
       

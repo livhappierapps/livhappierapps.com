@@ -100,9 +100,9 @@
 
 /* ── Main content pushed below fixed header ── */
 .main-content {
-  margin-top: 200px; /* logo-bar(100px) + candy-bar(40px) + nav-bar(60px) */
+  margin-top: 210px; /* logo-bar(110px) + candy-bar(40px) + nav-bar(60px) */
   flex: 1;
-  min-height: calc(100vh - 200px);
+  min-height: calc(100vh - 210px);
   background-color: #4a4a4a;
   display: flex;
   flex-direction: column;
@@ -110,8 +110,8 @@
 
 /* Home page has bigger logo so header is taller */
 .main-content-home {
-  margin-top: 320px; /* logo-bar(220px) + candy-bar(40px) + nav-bar(60px) */
-  min-height: calc(100vh - 320px);
+  margin-top: 360px; /* logo-bar(260px) + candy-bar(40px) + nav-bar(60px) */
+  min-height: calc(100vh - 360px);
 }
 
 /* ── Sticky Header Elements ── */
@@ -126,28 +126,32 @@
 }
 
 .header-logo-bar {
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem 1rem;
+  height: 110px;
+  overflow: hidden;
+  display: block;
+  padding: 0;
 }
 
 .header-logo-bar-home {
-  height: 220px;
-  padding: 1rem;
+  height: 260px;
 }
 
 .header-logo {
-  height: 80px;
-  width: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6)) drop-shadow(0 0 15px rgba(255, 0, 200, 0.4));
-  animation: floatLogo 4s ease-in-out infinite;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 44%;
+  display: block;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.header-logo:hover {
+  filter: brightness(1.08) saturate(1.1);
 }
 
 .header-logo-home {
-  height: 190px;
+  /* home page inherits full height from .header-logo-bar-home */
 }
 
 .candy-cane-bar {
