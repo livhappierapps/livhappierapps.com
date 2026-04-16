@@ -3,14 +3,14 @@ import { AppCard } from "@/components/AppCard";
 
 export default function Home() {
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-12">
       {/* Hero Section */}
-      <section className="flex flex-col items-center text-center mb-24 mt-8">
+      <section className="flex flex-col items-center text-center mb-24">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-8 text-4xl md:text-5xl font-display font-black text-white uppercase tracking-widest"
+          className="text-4xl md:text-5xl font-display text-white"
         >
           Welcome to
         </motion.h1>
