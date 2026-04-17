@@ -90,13 +90,13 @@ export default function Community() {
   return (
     <div className="flex-1 flex flex-row w-full max-w-5xl mx-auto px-2 md:px-4 py-2 gap-0 h-[calc(100vh-215px)]">
 
-      {/* ── Mascot column — slim, desktop only, points right at the pinned message ── */}
-      <div className="hidden md:flex flex-col items-end justify-start pt-10 pr-1 w-16 shrink-0">
+      {/* ── Mascot column — slim, points right at the pinned message ── */}
+      <div className="flex flex-col items-end justify-start pt-10 pr-1 w-12 md:w-16 shrink-0">
         <img
           src="/mascot.png"
           alt=""
           aria-hidden="true"
-          className="w-14 drop-shadow-[0_0_14px_rgba(255,0,200,0.5)]"
+          className="w-10 md:w-14 drop-shadow-[0_0_14px_rgba(255,0,200,0.5)]"
         />
       </div>
 

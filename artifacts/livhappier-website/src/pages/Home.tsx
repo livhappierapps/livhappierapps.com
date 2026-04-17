@@ -58,12 +58,12 @@ export default function Home() {
               colorTheme="cyan"
               delay={0.2}
             />
-            {/* Mascot pointing at EdenMux — desktop only */}
+            {/* Mascot pointing at EdenMux */}
             <img
               src="/mascot.png"
               alt=""
               aria-hidden="true"
-              className="hidden lg:block absolute bottom-6 -right-11 w-20 z-20 drop-shadow-[0_0_18px_rgba(255,0,200,0.6)]"
+              className="block absolute bottom-0 right-0 w-14 lg:bottom-6 lg:-right-11 lg:w-20 z-20 drop-shadow-[0_0_18px_rgba(255,0,200,0.6)]"
               style={{ transform: "scaleX(-1)" }}
             />
           </div>
@@ -139,12 +139,12 @@ export default function Home() {
             </p>
 
             <div className="flex items-end gap-3">
-              {/* Mascot pointing right at Cash App QR — desktop only */}
+              {/* Mascot pointing right at Cash App QR */}
               <img
                 src="/mascot.png"
                 alt=""
                 aria-hidden="true"
-                className="hidden md:block w-16 shrink-0 self-end drop-shadow-[0_0_14px_rgba(255,0,200,0.5)]"
+                className="block w-10 md:w-16 shrink-0 self-end drop-shadow-[0_0_14px_rgba(255,0,200,0.5)]"
               />
               <div className="about-dev-cashapp">
                 <a
