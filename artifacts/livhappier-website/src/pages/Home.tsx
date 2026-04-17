@@ -138,21 +138,30 @@ export default function Home() {
               Buy the developer a cup of coffee?
             </p>
 
-            <div className="about-dev-cashapp">
-              <a
-                href="https://cash.app/$Oblivionhappier58137"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="about-dev-cashapp-link"
-              >
-                <img
-                  src="/cashapp-qr.png"
-                  alt="Cash App QR code for $Oblivionhappier58137"
-                  className="about-dev-cashapp-qr"
-                />
-                <span className="about-dev-cashapp-tag">$Oblivionhappier58137</span>
-              </a>
-              <p className="about-dev-tip-note">Scan or tap to send via Cash App ☕</p>
+            <div className="flex items-end gap-3">
+              {/* Mascot pointing right at Cash App QR — desktop only */}
+              <img
+                src="/mascot.png"
+                alt=""
+                aria-hidden="true"
+                className="hidden md:block w-16 shrink-0 self-end drop-shadow-[0_0_14px_rgba(255,0,200,0.5)]"
+              />
+              <div className="about-dev-cashapp">
+                <a
+                  href="https://cash.app/$Oblivionhappier58137"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="about-dev-cashapp-link"
+                >
+                  <img
+                    src="/cashapp-qr.png"
+                    alt="Cash App QR code for $Oblivionhappier58137"
+                    className="about-dev-cashapp-qr"
+                  />
+                  <span className="about-dev-cashapp-tag">$Oblivionhappier58137</span>
+                </a>
+                <p className="about-dev-tip-note">Scan or tap to send via Cash App ☕</p>
+              </div>
             </div>
           </div>
         </div>
