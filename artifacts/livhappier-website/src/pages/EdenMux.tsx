@@ -1,7 +1,9 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink } from "lucide-react";
+import { useState } from "react";
 
 export default function EdenMux() {
+  const [webAppNotice, setWebAppNotice] = useState(false);
   return (
     <div className="w-full max-w-2xl mx-auto px-4 py-8">
 
@@ -123,10 +125,10 @@ export default function EdenMux() {
         </a>
 
         {/* EdenMux Web App Link */}
-        <a
-          href="https://workspace.livhappierapps.replit.app"
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="button"
+          onClick={() => setWebAppNotice((v) => !v)}
+          aria-expanded={webAppNotice}
           className="flex items-center justify-center gap-3 rounded-2xl py-4 px-6 font-display font-bold text-lg uppercase tracking-wider transition-all duration-300 active:scale-95"
           style={{
             background: "linear-gradient(135deg, rgba(220,38,38,0.2), rgba(180,0,0,0.35))",
@@ -138,9 +140,33 @@ export default function EdenMux() {
           <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
           </svg>
-          Open Web App
-          <ExternalLink className="w-4 h-4 opacity-70" />
-        </a>
+          Web App — Coming Soon
+        </button>
+
+        <AnimatePresence initial={false}>
+          {webAppNotice && (
+            <motion.div
+              key="edenmux-webapp-notice"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25 }}
+              className="overflow-hidden"
+            >
+              <div
+                className="rounded-2xl py-4 px-5 text-center text-sm font-body"
+                style={{
+                  background: "rgba(0,0,0,0.35)",
+                  border: "1px solid rgba(220,38,38,0.35)",
+                  color: "#fecaca",
+                }}
+              >
+                The EdenMux web app isn't live yet. Check back soon — or grab the
+                mobile version from the App Store or Google Play when it launches.
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
 
       {/* About Eden */}
