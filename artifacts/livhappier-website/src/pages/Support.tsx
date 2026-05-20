@@ -11,7 +11,7 @@ const PINNED_MESSAGE = {
     "Welcome to the LivHappierApps website! Thanks for stopping by, feel free to leave us a comment, ask the community a question, or just say hi!",
 };
 
-export default function Community() {
+export default function Support() {
   const [username, setUsername] = useState(() => localStorage.getItem("lh_username") || "");
   const [isJoined, setIsJoined] = useState(!!username);
   const [messageContent, setMessageContent] = useState("");

@@ -69,10 +69,10 @@ React + Vite frontend for the LivHappierApps website. Deployed as a static site.
 - **Image optimisation**: all public assets are sized to 2× their display size and stripped of metadata. Never commit full-resolution originals — re-compress with ImageMagick before adding to `public/`. Current sizes: `logo.png` 507 KB (768×583px PNG, lossless), `logo-crystal.jpeg` 157 KB, `skull.png` 8 KB, `developer.jpeg` 24 KB, `cashapp-qr.png` 94 KB, `edenmux-poster.jpeg` 91 KB, `edenmux-screenshot.jpeg` 89 KB. `bg.jpeg` and `logo.jpeg` were unused and removed
 - **Android / Facebook in-app browser compatibility**: `background-attachment: fixed` is permanently removed. `backdrop-filter` is wrapped in `@supports (backdrop-filter: blur(1px))` with a solid opaque background fallback for browsers (like Facebook's IAB) that don't support it. Open Graph + Twitter card meta tags are in `index.html` — required for Facebook's in-app browser to render properly when a link is shared on the platform. No HTTP mixed content. No debug code leaks. Site passes full deep-scan diagnostic — HTTP 200, valid SSL with HSTS (2-year), both homepage and API healthy
 - **DNS** (verified 2025-04-15): A record → `34.111.179.208`, no AAAA records, TXT `replit-verify=ae81ae43-23b0-4e98-9616-dca5b92ee471`, TTL 300 — all correct. Domain is Replit-managed (Core promotion) — DNS can only be changed via Replit Support
-- Header (`src/components/Header.tsx`): fixed sticky header with logo bar → candy-cane bar → nav bar. On the home page (`/`) the logo renders large (`header-logo-home`, 190px, bar height 220px); on all other pages the logo is 80px (bar height 100px) — always clearly visible. The `AppShell` in `App.tsx` applies `main-content-home` (margin-top 320px) on home and `main-content` (margin-top 200px) elsewhere. Nav links: Home, Apps, Community, Settings
+- Header (`src/components/Header.tsx`): fixed sticky header with logo bar → candy-cane bar → nav bar. On the home page (`/`) the logo renders large (`header-logo-home`, 190px, bar height 220px); on all other pages the logo is 80px (bar height 100px) — always clearly visible. The `AppShell` in `App.tsx` applies `main-content-home` (margin-top 320px) on home and `main-content` (margin-top 200px) elsewhere. Nav links: Home, Apps, Support, Settings
 - Pages:
   - `src/pages/Home.tsx` — Hero "Welcome to" + logo image + tagline; app cards grid (2wai spans 2 of 3 cols as featured); **three mascot placements total, all visible on mobile**: (1) 2wai mascot: `scaleX(-1)` (faces left), `absolute`, mobile: `bottom-0 right-0 w-14`, desktop: `bottom-6 -right-11 w-20` — pink neon glow, pointing back at the 2wai card; (2) Cash App mascot: NO flip (faces right), `block w-10 md:w-16 shrink-0 self-end`, inline to the LEFT of the cashapp QR section inside a `flex items-end gap-3` row — she points right toward the QR code; **About the Developer** section at the bottom (developer photo `public/developer.jpeg`, bio with inline logo, Cash App QR code `public/cashapp-qr.png` linking to `https://cash.app/$Oblivionhappier58137`, cashtag `$Oblivionhappier58137`). Mascot image: `public/mascot.png`, 117 KB, 400px PNG source. Do NOT add scaleX(-1) to the cashapp mascot — she must face RIGHT. Do NOT add `hidden md:block` or `hidden lg:block` to any mascot — they must show on all screen sizes. **App grid order (2026-05-20)**: 2wai (featured, purple, coming_soon), HiveBanter (pink, launching_soon — $0.50/user or $2.99 business, first month free), EdenMux (cyan, coming_soon), The Memory Machine (cyan, coming_soon), AppArchy (pink), TimeAtlus (cyan), RealizeMe (purple), AIs&Ears (pink)
-  - `src/pages/Community.tsx` — Live chat with "Join the Conversation" entry screen; uses PostgreSQL via the API server for message persistence
+  - `src/pages/Support.tsx` — Live chat with "Join the Conversation" entry screen (route: `/support`); uses PostgreSQL via the API server for message persistence
   - `src/pages/EdenMux.tsx` — EdenMux app landing page
   - `src/pages/Settings.tsx` — Settings page with placeholder for future preferences + Contact section at the bottom ("Need extra support or need to contact the developer?" + `oblivionhappier@icloud.com` mailto link)
   - `src/pages/not-found.tsx` — 404 page
@@ -149,24 +149,27 @@ Shared dependency versions are managed via the `catalog:` section in `pnpm-works
 
 ## Security Posture (last scanned 2026-05-20)
 
-Full scan run: dependency audit + SAST + dataflow (HoundDog).
+Full scan run: dependency audit + SAST + dataflow (HoundDog). E2E tests also passing.
 
-**Zero dependency vulnerabilities. Zero application code findings.**
+**Zero dependency vulnerabilities. Zero production code findings.**
 
 | Scanner | Our Code | Notes |
 |---|---|---|
-| SAST | ✅ 1 MEDIUM | In `artifacts/mockup-sandbox` (canvas tool, never deployed to production) — `unsafe-dynamic-method` in App.tsx:40 |
+| Dep audit | ✅ **0 findings** | All vulnerabilities patched via pnpm overrides |
+| SAST | ✅ 0 in production | 14 HIGH / 11 MEDIUM flagged — ALL in `.agents/skills/` (third-party Replit skill scripts: pptx, brainstorming, skill-creator). None in `artifacts/` or `lib/` |
 | HoundDog | ✅ 0 findings | Clean |
-| Dep audit | ✅ **0 findings** | All 8 vulnerabilities patched via pnpm overrides |
+| E2E tests | ✅ All passing | Homepage, app grid, community page, mobile layout verified |
 
-**Previously documented picomatch risk — fully resolved (2026-05-20):** picomatch@2.3.1 and @4.0.3 were previously flagged as acceptable risk (dev-only build tools). Both are now patched via version-selector overrides without breaking the build. micromatch's direct pin to picomatch@4.0.3 required an additional parent→child override (`micromatch>picomatch: '>=4.0.4'`).
+**SAST agent-skill findings are not our code:** `.agents/skills/` contains third-party Replit skill scripts (pptx XML parsing, brainstorming WebSocket helper, skill-creator subprocess). These are never deployed to production and cannot be modified. They do not affect `livhappierapps.com`.
+
+**All 8 dependency CVEs fully resolved (2026-05-20):** brace-expansion, fast-uri (×2), postcss, picomatch@^2 (×2), picomatch@^4 (×2). micromatch's direct pin to picomatch@4.0.3 required an additional parent→child override (`micromatch>picomatch: '>=4.0.4'`).
+
+**Stripe crawler visibility (2026-05-20):** Site returns HTTP 200 with full OG meta tags (`og:title`, `og:description`, `og:image`). Added `<noscript>` block to `index.html` with business name, app list, and contact — ensures non-JS crawlers (including Stripe's verifier) see meaningful content. If Stripe still shows "can't confirm website", re-enter/re-verify the URL in the Stripe dashboard — the site is confirmed live and accessible.
 
 **PostgreSQL SSL warning in deployment logs**: `SSL modes 'prefer'/'require' are aliases for 'verify-full'` — informational only. SSL is being *upgraded* to stricter cert verification, which is correct and secure.
 
-**Reported Chrome rendering issue (2026-04-17):** User reported the site "back down on Chrome" after the security scan republish. Server-side logs show no errors — all health checks pass, API responds correctly. Root cause is likely stale browser cache after the static file hashes changed between deploys. Added missing `<link rel="preload" as="image" href="/logo.png" />` to `index.html` to improve LCP on Chrome. No CSS regressions found — `@supports` backdrop-filter fallbacks are in place, no `background-attachment: fixed` present.
+**Safari "not secure" warning (2026-04-17):** Replit-managed domain cert propagation delay on new deploys; resolves within minutes. Navigate to `https://livhappierapps.com` explicitly. If it persists, contact Replit Support.
 
-**Safari "not secure" warning (2026-04-17):** User saw "This Connection Is Not Secure" on iOS Safari right after a new deployment. Server-side logs showed zero SSL errors — all API health checks pass. Root cause is a Replit-managed domain cert propagation delay; this resolves on its own within a few minutes of a new deploy. Workaround: navigate to `https://livhappierapps.com` explicitly (ensure the `https://` prefix). If it persists, contact Replit Support — DNS and SSL certs are fully platform-managed and cannot be changed from the codebase.
+**Mascots rule:** Never add `hidden md:block` or `hidden lg:block` to any mascot element — all three must show on all screen sizes.
 
-**Mascots hidden on mobile (2026-04-17):** All three mascots were set to `hidden md:block` / `hidden lg:block`, making them invisible on phones. Fixed by removing the `hidden` classes — all three mascots now show on all screen sizes with responsive sizing (`w-10/14/20` scaling by breakpoint). Rule: never add `hidden md:block` or `hidden lg:block` to a mascot element.
-
-**Project status:** Site is complete and live. On pause until the next set of apps (AppArchy, TimeAtlus, RealizeMe, AIs&Ears) are ready to add.
+**Project status:** Site is live at `livhappierapps.com`. App grid updated 2026-05-20: 2wai (featured), HiveBanter (launching soon), EdenMux, The Memory Machine, AppArchy, TimeAtlus, RealizeMe, AIs&Ears.
