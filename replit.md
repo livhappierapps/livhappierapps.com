@@ -139,22 +139,27 @@ Shared dependency versions are managed via the `catalog:` section in `pnpm-works
 - `vite`: `^7.3.2`
 - `lodash` override: `^4.18.0`
 - `path-to-regexp` override: `^8.4.0`
-- `brace-expansion` override: `>=2.0.3` (patches CVE-2026-33750 — zero-step ReDoS)
+- `brace-expansion` override: `>=5.0.6` (patches CVE-2026-33750 + GHSA-jxxr-4gwj-5jf2 — ReDoS and large numeric range DoS)
 - `yaml` override: `>=2.8.3` (patches stack overflow via deeply nested YAML collections)
+- `fast-uri` override: `>=3.1.2` (patches GHSA-q3j6-qgpj-74h6 + GHSA-v39h-62p7-jpjc — path traversal and host confusion)
+- `postcss` override: `>=8.5.10` (patches GHSA-qx2v-qp2m-jg93 — XSS via unescaped `</style>`)
+- `picomatch@^2` override: `>=2.3.2` (patches GHSA-c2c7-rcm5-vvqj + GHSA-3v7f-55p6-f55p — ReDoS and method injection)
+- `picomatch@^4` override: `>=4.0.4` (same advisories for v4 branch)
+- `micromatch>picomatch` override: `>=4.0.4` (targeted fix for micromatch's pinned picomatch@4.0.3)
 
-## Security Posture (last scanned 2026-04-17)
+## Security Posture (last scanned 2026-05-20)
 
-Full scan run: dependency audit + SAST + dataflow (HoundDog). Run twice — after initial scan (brace-expansion + yaml patched), re-scanned to confirm.
+Full scan run: dependency audit + SAST + dataflow (HoundDog).
 
-**Our application code — zero meaningful findings.** All flagged items outside one MEDIUM are in Replit's internal agent skill scripts (`.agents/skills/`) and are not part of the deployed app.
+**Zero dependency vulnerabilities. Zero application code findings.**
 
 | Scanner | Our Code | Notes |
 |---|---|---|
 | SAST | ✅ 1 MEDIUM | In `artifacts/mockup-sandbox` (canvas tool, never deployed to production) — `unsafe-dynamic-method` in App.tsx:40 |
 | HoundDog | ✅ 0 findings | Clean |
-| Dep audit | ✅ patched | brace-expansion + yaml overridden; down from 6 → 4 remaining findings |
+| Dep audit | ✅ **0 findings** | All 8 vulnerabilities patched via pnpm overrides |
 
-**Known acceptable risk — picomatch (2 HIGH, 2 MODERATE):** picomatch@2.3.1 and @4.0.3 both have ReDoS issues. These are transitive dev-only dependencies of build tools (vite/rollup). They are **not in the production bundle**, never exposed to user input, and only run at build time. No override was added because forcing a cross-major-version upgrade would break the build — production risk is zero.
+**Previously documented picomatch risk — fully resolved (2026-05-20):** picomatch@2.3.1 and @4.0.3 were previously flagged as acceptable risk (dev-only build tools). Both are now patched via version-selector overrides without breaking the build. micromatch's direct pin to picomatch@4.0.3 required an additional parent→child override (`micromatch>picomatch: '>=4.0.4'`).
 
 **PostgreSQL SSL warning in deployment logs**: `SSL modes 'prefer'/'require' are aliases for 'verify-full'` — informational only. SSL is being *upgraded* to stricter cert verification, which is correct and secure.
 
