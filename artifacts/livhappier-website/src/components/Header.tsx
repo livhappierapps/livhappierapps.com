@@ -35,14 +35,14 @@ export function Header() {
               key={link.href} 
               href={link.href}
               className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-xl font-display font-bold tracking-wide uppercase text-sm md:text-base transition-all duration-300",
+                "flex items-center gap-1.5 px-2.5 py-2 rounded-xl font-display font-bold tracking-wide uppercase text-sm transition-all duration-300",
                 isActive 
                   ? "text-primary bg-primary/10 neon-border-cyan" 
                   : "text-muted-foreground hover:text-secondary hover:bg-secondary/10 hover:neon-border-pink border border-transparent"
               )}
             >
-              <link.icon className="w-4 h-4 md:w-5 md:h-5" />
-              {link.label}
+              <link.icon className="w-4 h-4" />
+              <span className="hidden sm:inline">{link.label}</span>
             </Link>
           );
         })}

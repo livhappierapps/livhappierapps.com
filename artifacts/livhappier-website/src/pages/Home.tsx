@@ -95,10 +95,10 @@ export default function Home() {
             delay={0.4}
           />
 
-          {/* AppArchy */}
+          {/* GenMyOwn */}
           <AppCard
-            title="AppArchy"
-            description="App Building Anarchy. The revolution begins soon!"
+            title="GenMyOwn"
+            description="Next-generation app building with an interactive AI interface. Meet Gen — your AI companion for building and maintaining your own creations."
             status="coming_soon"
             colorTheme="pink"
             delay={0.5}
