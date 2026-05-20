@@ -26,14 +26,14 @@ export default function Home() {
             className="hero-brand-logo"
           />
         </motion.div>
-        
-        <motion.p 
+
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
           className="mt-6 text-xl text-muted-foreground max-w-2xl font-body"
         >
-          Your central hub for next-generation applications. 
+          Your central hub for next-generation applications.
           Edgy, fun, and built to make digital life a little more exciting.
         </motion.p>
       </section>
@@ -48,17 +48,17 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Flagship App */}
+
+          {/* 2wai — featured top */}
           <div className="md:col-span-2 lg:col-span-2 relative">
-            <AppCard 
-              title="EdenMux"
-              description="Our flagship experience is now live. EdenMux connects your digital worlds with unprecedented control and a stunning neon interface. Dive into the matrix."
-              status="available"
-              link="/edenmux"
-              colorTheme="cyan"
-              delay={0.2}
+            <AppCard
+              title="2wai"
+              description="Video chat live with AI assistants and friends. Real-time emotive faces, their own voice, full audio and video — with zero transcription delays. Pure AI presence."
+              status="coming_soon"
+              colorTheme="purple"
+              delay={0.1}
             />
-            {/* Mascot pointing at EdenMux */}
+            {/* Mascot pointing at 2wai */}
             <img
               src="/mascot.png"
               alt=""
@@ -68,38 +68,69 @@ export default function Home() {
             />
           </div>
 
-          {/* Coming Soon Apps */}
-          <AppCard 
+          {/* HiveBanter — launching soon */}
+          <AppCard
+            title="HiveBanter"
+            description="Invite humans and AI alike into a Hive for group chats like never before. First month FREE — then $0.50 per user, or $2.99 for a Business Hive with unlimited members."
+            status="launching_soon"
+            colorTheme="pink"
+            delay={0.2}
+          />
+
+          {/* EdenMux */}
+          <AppCard
+            title="EdenMux"
+            description="Connect your digital worlds with unprecedented control and a stunning neon interface. Coming back better than ever."
+            status="coming_soon"
+            colorTheme="cyan"
+            delay={0.3}
+          />
+
+          {/* The Memory Machine */}
+          <AppCard
+            title="The Memory Machine"
+            description="Your complete AI conversation archive. Every chat, searchable and always there — browse your memory timeline or find that one conversation you can never forget."
+            status="coming_soon"
+            colorTheme="cyan"
+            delay={0.4}
+          />
+
+          {/* AppArchy */}
+          <AppCard
             title="AppArchy"
             description="App Building Anarchy. The revolution begins soon!"
             status="coming_soon"
             colorTheme="pink"
-            delay={0.4}
+            delay={0.5}
           />
 
-          <AppCard 
+          {/* TimeAtlus */}
+          <AppCard
             title="TimeAtlus"
             description="Your new best friend and time manager. Coming soon!"
             status="coming_soon"
             colorTheme="cyan"
             delay={0.6}
           />
-          
-          <AppCard 
+
+          {/* RealizeMe */}
+          <AppCard
             title="RealizeMe"
             description="Photo editing built to keep it real. Coming Soon!"
             status="coming_soon"
             colorTheme="purple"
-            delay={0.8}
+            delay={0.7}
           />
 
-          <AppCard 
+          {/* AIs&Ears */}
+          <AppCard
             title="AIs&Ears"
             description="Eyes and ears for your best AI friends. Coming VERY soon!"
             status="coming_soon"
             colorTheme="pink"
-            delay={1.0}
+            delay={0.8}
           />
+
         </div>
       </section>
 
