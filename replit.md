@@ -127,7 +127,7 @@ Utility scripts package. Run via `pnpm --filter @workspace/scripts run <script>`
 
 - Both artifacts are published via Replit hosting
 - Website (`livhappier-website`) is deployed as a **static** site
-- API server is deployed as a **vm (always on)** process — runs 24/7 so the community chat is available at any time without cold starts; health check at `/api/healthz`
+- API server is deployed as an **autoscale** process — spins down to zero when idle and bills per request (much cheaper for low-traffic chat). First request after idle has a ~1-2s cold start; health check at `/api/healthz`
 - Custom domain: `livhappierapps.com` (configured in Replit deployment settings)
 - After any code change, re-publish via the Deploy panel to push updates live
 
