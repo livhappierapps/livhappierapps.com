@@ -1,0 +1,92 @@
+name: Weekly PostgreSQL Backup
+
+# Runs every Sunday at 06:00 UTC and on manual dispatch.
+# Dumps the production database with pg_dump and commits the gzipped
+# dump to the `backups/` folder of this repo. Keeps the most recent
+# 4 weekly backups (older ones are pruned automatically).
+#
+# Setup (one-time):
+#   1. In GitHub repo Settings → Secrets and variables → Actions, add a
+#      secret named DATABASE_URL with the Replit Postgres connection
+#      string (use the "External" / pooler URL, not the internal one).
+#      Example: postgres://USER:PASS@HOST:PORT/DB?sslmode=require
+#   2. Ensure the workflow has write permission to the repo
+#      (Settings → Actions → General → Workflow permissions →
+#      "Read and write permissions").
+#
+# Restore:
+#   gunzip -c backups/livhappier-YYYY-MM-DD.sql.gz | psql "$NEW_DATABASE_URL"
+
+on:
+  schedule:
+    - cron: "0 6 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install PostgreSQL 17 client
+        run: |
+          sudo install -d /usr/share/postgresql-common/pgdg
+          sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc \
+            --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
+          echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] \
+            https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" \
+            | sudo tee /etc/apt/sources.list.d/pgdg.list
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client-17
+
+      - name: Dump database
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p backups
+          STAMP=$(date -u +%Y-%m-%d)
+          OUT="backups/livhappier-${STAMP}.sql.gz"
+          # pipefail ensures a pg_dump failure fails the step even though
+          # gzip would otherwise exit 0 on an empty/partial stream.
+          pg_dump --no-owner --no-privileges --clean --if-exists \
+            "$DATABASE_URL" | gzip -9 > "$OUT"
+
+          # Integrity checks — refuse to commit a broken/tiny dump.
+          gunzip -t "$OUT"
+          SIZE=$(stat -c%s "$OUT")
+          echo "Dump size: ${SIZE} bytes"
+          if [ "$SIZE" -lt 1024 ]; then
+            echo "ERROR: dump is suspiciously small (<1KB); aborting." >&2
+            exit 1
+          fi
+          # Confirm the decompressed dump actually contains SQL content.
+          if ! gunzip -c "$OUT" | head -c 4096 | grep -q "PostgreSQL database dump"; then
+            echo "ERROR: dump header missing; aborting." >&2
+            exit 1
+          fi
+          ls -lh "$OUT"
+
+      - name: Prune old backups (keep last 4)
+        run: |
+          cd backups
+          ls -1t livhappier-*.sql.gz 2>/dev/null | tail -n +5 | xargs -r rm -v
+          cd ..
+
+      - name: Commit & push backup
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backups/
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore(backup): weekly db dump $(date -u +%Y-%m-%d)"
+            git push
+          fi
