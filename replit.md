@@ -147,18 +147,18 @@ Shared dependency versions are managed via the `catalog:` section in `pnpm-works
 - `picomatch@^4` override: `>=4.0.4` (same advisories for v4 branch)
 - `micromatch>picomatch` override: `>=4.0.4` (targeted fix for micromatch's pinned picomatch@4.0.3)
 
-## Security Posture (last scanned 2026-05-20)
+## Security Posture (last scanned 2026-05-20, re-scanned 2026-05-20 pre-publish)
 
-Full scan run: dependency audit + SAST + dataflow (HoundDog). E2E tests also passing.
+Full scan run: dependency audit + SAST + dataflow (HoundDog). Typecheck clean. No runtime errors in workflow logs.
 
-**Zero dependency vulnerabilities. Zero production code findings.**
+**Zero dependency vulnerabilities. Zero deployed-code findings.**
 
 | Scanner | Our Code | Notes |
 |---|---|---|
 | Dep audit | ✅ **0 findings** | All vulnerabilities patched via pnpm overrides |
-| SAST | ✅ 0 in production | 14 HIGH / 11 MEDIUM flagged — ALL in `.agents/skills/` (third-party Replit skill scripts: pptx, brainstorming, skill-creator). None in `artifacts/` or `lib/` |
+| SAST | ✅ 0 in deployed code | 14 HIGH / 11 MEDIUM flagged in `.agents/skills/` (third-party Replit skill scripts — not our code). 1 MEDIUM in `artifacts/mockup-sandbox/src/App.tsx` (`_resolveComponent` dynamic dispatch) — mockup-sandbox is `kind = "design"`, dev-only, **NOT deployed** to livhappierapps.com |
 | HoundDog | ✅ 0 findings | Clean |
-| E2E tests | ✅ All passing | Homepage, app grid, community page, mobile layout verified |
+| Typecheck | ✅ Pass | All 4 workspace packages typecheck clean from root |
 
 **SAST agent-skill findings are not our code:** `.agents/skills/` contains third-party Replit skill scripts (pptx XML parsing, brainstorming WebSocket helper, skill-creator subprocess). These are never deployed to production and cannot be modified. They do not affect `livhappierapps.com`.
 
@@ -172,4 +172,18 @@ Full scan run: dependency audit + SAST + dataflow (HoundDog). E2E tests also pas
 
 **Mascots rule:** Never add `hidden md:block` or `hidden lg:block` to any mascot element — all three must show on all screen sizes.
 
-**Project status:** Site is live at `livhappierapps.com`. App grid updated 2026-05-20: 2wai (featured), HiveBanter (launching soon), EdenMux, The Memory Machine, AppArchy, TimeAtlus, RealizeMe, AIs&Ears.
+**Project status:** Site is live at `livhappierapps.com`. App grid (as of 2026-05-20): 2wai (featured, coming_soon), HiveBanter (launching_soon — $0.50/user or $2.99 business, first month free), EdenMux (coming_soon), The Memory Machine (coming_soon), GenMyOwn (formerly AppArchy — AI companion "Gen" for building/maintaining apps, coming_soon), TimeAtlus, RealizeMe, AIs&Ears.
+
+**Pre-publish audit (2026-05-20):** Live site verified — all 4 routes return HTTP 200, valid Let's Encrypt cert (exp Jul 8 2026, auto-renews), HSTS 2-year + includeSubDomains, OG/Twitter meta tags present, `/api/healthz` returns `{"status":"ok"}` from the VM deployment. **Critical bug found & fixed:** `dist/public/index.html` was stale (built before the `<noscript>` block was added for Stripe's crawler) — site rebuilt in this session, **republish required** to push the noscript fix live. Full audit report in `.local/publication-audit-2026-05-20.md`. Reusable audit skill saved at `.agents/skills/assess-publication/SKILL.md` so future audits cost nothing to plan.
+
+**EdenMux page (2026-05-20):** Removed external link to `workspace.livhappierapps.replit.app` (was exposing dev workspace URL). Replaced with in-page "Web App — Coming Soon" toggle that animates a notice pointing visitors to the App Store / Google Play buttons. App Store / Google Play buttons still point at generic apple.com / play.google.com placeholders — needs real links once apps are approved (Task #8 was cancelled but the work remains).
+
+**Pending pre-store-submission work:**
+- Task #5 (in progress): switch API from `vm` always-on to `autoscale` to cut hosting cost (~70-90% savings for low-traffic chat). Trade-off: ~1-2s cold start on first request.
+- Task #6 (pending): push repo to GitHub + weekly `pg_dump` backup + migration playbook for survivability if Replit account is lost.
+- Task #9 (proposed): keep chat snappy by pinging API every few minutes (only relevant if Task #5 ships).
+- Once apps are approved in stores: replace placeholder App Store / Google Play links on EdenMux page (and add equivalent links for 2wai, HiveBanter, etc as each launches).
+
+**Public assets cleanup (2026-05-20):** Removed unused `public/opengraph.jpg` (123 KB). Active public images: `logo.png`, `logo-crystal.jpeg`, `mascot.png`, `cashapp-qr.png`, `edenmux-poster.jpeg`, `edenmux-screenshot.jpeg`, `candy-cane.jpeg`, `developer.jpeg`, `skull.png`, `favicon.svg`. OG image meta tag uses `/logo.png` (not opengraph.jpg).
+
+**Mobile nav (2026-05-20):** Reduced `.nav-bar` gap to 0.25rem, link padding to `px-2.5`. Wrapped labels in `<span className="hidden sm:inline">` so mobile (<640px) shows 4 icons only, desktop shows icon + text. Verified clean at 390px and 1280px.
