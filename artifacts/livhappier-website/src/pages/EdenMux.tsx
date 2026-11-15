@@ -1,11 +1,37 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { useState } from "react";
+import { RouteMeta } from "@/components/RouteMeta";
+
+const BASE = "https://livhappierapps.com";
+
+const EDENMUX_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "EdenMux",
+  applicationCategory: "UtilitiesApplication",
+  operatingSystem: "iOS, Android",
+  description:
+    "EdenMux is a bold new app from LivHappier Apps — coming soon to iOS and Android.",
+  author: { "@type": "Organization", name: "LivHappier Apps", url: BASE },
+  offers: {
+    "@type": "Offer",
+    availability: "https://schema.org/PreOrder",
+    price: "0",
+    priceCurrency: "USD",
+  },
+};
 
 export default function EdenMux() {
   const [webAppNotice, setWebAppNotice] = useState(false);
   return (
     <div className="w-full max-w-2xl mx-auto px-4 py-8">
+      <RouteMeta
+        title="EdenMux — LivHappier Apps"
+        description="EdenMux is a bold new app from LivHappier Apps — coming soon to iOS and Android. A fresh experience built for the next generation."
+        canonical={`${BASE}/edenmux`}
+        jsonLd={EDENMUX_JSON_LD}
+      />
 
       {/* Hero Poster */}
       <motion.div
@@ -204,9 +230,12 @@ export default function EdenMux() {
         >
           Privacy Policy
         </a>
-        <p className="font-body text-xs text-center" style={{ color: "rgba(255,255,255,0.3)" }}>
-          © {new Date().getFullYear()} LivHappier Apps. All rights reserved.
-        </p>
+        <div className="flex flex-col items-center gap-1">
+          <img src="/logo.png" alt="LivHappierApps" className="h-8 w-auto object-contain opacity-60" />
+          <p className="font-body text-xs text-center" style={{ color: "rgba(255,255,255,0.25)" }}>
+            © {new Date().getFullYear()} All rights reserved.
+          </p>
+        </div>
       </motion.div>
     </div>
   );

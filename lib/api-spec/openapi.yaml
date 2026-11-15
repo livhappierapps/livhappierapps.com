@@ -9,8 +9,8 @@ servers:
 tags:
   - name: health
     description: Health operations
-  - name: messages
-    description: Community chat messages
+  - name: chat
+    description: AI support chat
 paths:
   /healthz:
     get:
@@ -25,38 +25,24 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
-  /messages:
-    get:
-      operationId: getMessages
-      tags: [messages]
-      summary: Get community messages
-      description: Returns the latest community chat messages
-      responses:
-        "200":
-          description: List of messages
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Message"
+  /chat:
     post:
-      operationId: createMessage
-      tags: [messages]
-      summary: Post a community message
+      operationId: sendChatMessage
+      tags: [chat]
+      summary: Send a message to the AI support agent
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateMessage"
+              $ref: "#/components/schemas/ChatRequest"
       responses:
-        "201":
-          description: Message created
+        "200":
+          description: AI reply
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Message"
+                $ref: "#/components/schemas/ChatResponse"
 components:
   schemas:
     HealthStatus:
@@ -66,34 +52,35 @@ components:
           type: string
       required:
         - status
-    Message:
+    ChatMessage:
       type: object
       properties:
-        id:
-          type: integer
-        username:
+        role:
           type: string
+          enum: [user, assistant]
         content:
           type: string
-        createdAt:
-          type: string
-          format: date-time
       required:
-        - id
-        - username
+        - role
         - content
-        - createdAt
-    CreateMessage:
+    ChatRequest:
       type: object
       properties:
-        username:
+        message:
           type: string
           minLength: 1
-          maxLength: 30
-        content:
-          type: string
-          minLength: 1
-          maxLength: 500
+          maxLength: 2000
+        history:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChatMessage"
+          maxItems: 20
       required:
-        - username
-        - content
+        - message
+    ChatResponse:
+      type: object
+      properties:
+        reply:
+          type: string
+      required:
+        - reply
