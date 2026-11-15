@@ -1,3 +1,4 @@
+import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { ExternalLink, Sparkles, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -82,7 +83,7 @@ export function AppCard({ title, description, status, link, colorTheme, delay = 
         {description}
       </p>
 
-      <div className="mt-8 relative z-10">
+      <div className="mt-8 relative z-10 flex flex-col gap-3">
         {isAvailable && link ? (
           <a
             href={link}
@@ -113,6 +114,17 @@ export function AppCard({ title, description, status, link, colorTheme, delay = 
           >
             In Development
           </button>
+        )}
+        {!isAvailable && link && (
+          <Link
+            href={link}
+            className={cn(
+              "w-full flex items-center justify-center gap-2 py-2 px-4 rounded-xl font-display font-bold text-sm uppercase tracking-widest border transition-all duration-300",
+              "border-white/20 text-white/60 hover:text-white hover:border-white/40"
+            )}
+          >
+            Learn More
+          </Link>
         )}
       </div>
     </motion.div>

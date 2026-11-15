@@ -1,9 +1,42 @@
 import { motion } from "framer-motion";
 import { AppCard } from "@/components/AppCard";
+import { RouteMeta } from "@/components/RouteMeta";
+
+const BASE = "https://livhappierapps.com";
+
+const HOME_JSON_LD = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "LivHappier Apps",
+    url: BASE,
+    logo: `${BASE}/logo.png`,
+    description: "LivHappier Apps creates next-generation mobile and AI applications.",
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "oblivionhappier@icloud.com",
+      contactType: "customer support",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "LivHappier Apps",
+    url: BASE,
+    description:
+      "Central hub for the LivHappier Apps suite of next-generation mobile and AI applications.",
+  },
+];
 
 export default function Home() {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-12">
+      <RouteMeta
+        title="LivHappier Apps — Next-Generation Mobile Apps"
+        description="Your central hub for next-generation applications. 2wai, MiddleMAIn, EdenMux, The Memory Machine, GenMyOwn, TimeAtlus, RealizeMe, AIs&Ears — edgy, fun, and built to make digital life a little more exciting."
+        canonical={`${BASE}/`}
+        jsonLd={HOME_JSON_LD}
+      />
       {/* Hero Section */}
       <section className="flex flex-col items-center text-center mb-24">
         <motion.h1
@@ -68,12 +101,13 @@ export default function Home() {
             />
           </div>
 
-          {/* HiveBanter — launching soon */}
+          {/* MiddleMAIn — launching soon */}
           <AppCard
-            title="HiveBanter"
-            description="Invite humans and AI alike into a Hive for group chats like never before. First month FREE — then $0.50 per user, or $2.99 for a Business Hive with unlimited members."
+            title="MiddleMAIn"
+            description="A professional AI development bridge. Full streaming terminal, 8 built-in dev skills, Vision AI, and support for Grok, GPT-4o, Claude, and custom APIs — all in your pocket."
             status="launching_soon"
-            colorTheme="pink"
+            colorTheme="cyan"
+            link="/apps/middlemain"
             delay={0.2}
           />
 
@@ -83,6 +117,7 @@ export default function Home() {
             description="Connect your digital worlds with unprecedented control and a stunning neon interface. Coming back better than ever."
             status="coming_soon"
             colorTheme="cyan"
+            link="/edenmux"
             delay={0.3}
           />
 
@@ -128,6 +163,7 @@ export default function Home() {
             description="Eyes and ears for your best AI friends. Coming VERY soon!"
             status="coming_soon"
             colorTheme="pink"
+            link="/apps/aisandears"
             delay={0.8}
           />
 

@@ -6,6 +6,8 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export * from "./createMessage";
+export * from "./chatMessage";
+export * from "./chatMessageRole";
+export * from "./chatRequest";
+export * from "./chatResponse";
 export * from "./healthStatus";
-export * from "./message";

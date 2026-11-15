@@ -1,0 +1,30 @@
+# LivHappier Apps
+
+> LivHappierApps is a central hub for a suite of next-generation mobile and web applications — edgy, fun, and built to make digital life more exciting. Built and maintained by a single developer.
+
+## Key Pages
+
+- [Home](https://livhappierapps.com/): Main hub showcasing all LivHappierApps products and the developer story.
+- [EdenMux](https://livhappierapps.com/edenmux): Product landing page for EdenMux — connect your digital worlds with a stunning neon interface.
+- [MiddleMAIn](https://livhappierapps.com/apps/middlemain): Product landing page for MiddleMAIn — a professional AI development bridge with streaming terminal, Vision AI, and multi-provider support (Grok, GPT-4o, Claude, and custom APIs).
+- [Support](https://livhappierapps.com/support): AI-powered support chat (Grok) available 24/7.
+- [Settings](https://livhappierapps.com/settings): App preferences and compliance commitment details (Stripe, Apple, Google).
+
+## Legal
+
+- [MiddleMAIn Privacy Policy](https://livhappierapps.com/apps/middlemain/privacy)
+- [MiddleMAIn Terms & Conditions](https://livhappierapps.com/apps/middlemain/terms)
+
+## Apps in Development
+
+- **2wai** — Live video chat with AI assistants and friends. Real-time emotive faces, voice, full audio/video, zero transcription delays.
+- **EdenMux** — Connect your digital worlds with unprecedented control and a neon interface.
+- **The Memory Machine** — Complete AI conversation archive. Every chat, searchable and always there.
+- **GenMyOwn** — Next-generation app building with an interactive AI companion named Gen.
+- **TimeAtlus** — AI-powered time manager and personal organizer.
+- **RealizeMe** — Photo editing built to keep it real.
+- **AIs&Ears** — Eyes and ears for your best AI friends.
+
+## Contact
+
+oblivionhappier@icloud.com

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://livhappierapps.com/sitemap.xml

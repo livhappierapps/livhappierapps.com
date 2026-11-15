@@ -16,25 +16,25 @@ export const HealthCheckResponse = zod.object({
 });
 
 /**
- * Returns the latest community chat messages
- * @summary Get community messages
+ * @summary Send a message to the AI support agent
  */
-export const GetMessagesResponseItem = zod.object({
-  id: zod.number(),
-  username: zod.string(),
-  content: zod.string(),
-  createdAt: zod.coerce.date(),
+export const sendChatMessageBodyMessageMax = 2000;
+
+export const sendChatMessageBodyHistoryMax = 20;
+
+export const SendChatMessageBody = zod.object({
+  message: zod.string().min(1).max(sendChatMessageBodyMessageMax),
+  history: zod
+    .array(
+      zod.object({
+        role: zod.enum(["user", "assistant"]),
+        content: zod.string(),
+      }),
+    )
+    .max(sendChatMessageBodyHistoryMax)
+    .optional(),
 });
-export const GetMessagesResponse = zod.array(GetMessagesResponseItem);
 
-/**
- * @summary Post a community message
- */
-export const createMessageBodyUsernameMax = 30;
-
-export const createMessageBodyContentMax = 500;
-
-export const CreateMessageBody = zod.object({
-  username: zod.string().min(1).max(createMessageBodyUsernameMax),
-  content: zod.string().min(1).max(createMessageBodyContentMax),
+export const SendChatMessageResponse = zod.object({
+  reply: zod.string(),
 });

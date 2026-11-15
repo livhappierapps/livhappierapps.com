@@ -9,22 +9,29 @@ export interface HealthStatus {
   status: string;
 }
 
-export interface Message {
-  id: number;
-  username: string;
+export type ChatMessageRole =
+  (typeof ChatMessageRole)[keyof typeof ChatMessageRole];
+
+export const ChatMessageRole = {
+  user: "user",
+  assistant: "assistant",
+} as const;
+
+export interface ChatMessage {
+  role: ChatMessageRole;
   content: string;
-  createdAt: string;
 }
 
-export interface CreateMessage {
+export interface ChatRequest {
   /**
    * @minLength 1
-   * @maxLength 30
+   * @maxLength 2000
    */
-  username: string;
-  /**
-   * @minLength 1
-   * @maxLength 500
-   */
-  content: string;
+  message: string;
+  /** @maxItems 20 */
+  history?: ChatMessage[];
+}
+
+export interface ChatResponse {
+  reply: string;
 }
